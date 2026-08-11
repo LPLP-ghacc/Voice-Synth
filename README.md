@@ -1,2 +1,10 @@
-# Voice-Synth
-A virtual audio output [device](https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack45.zip) is required for the program to work.
+Voice Synth uses third-party software (https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack45.zip) for audio output.
+Installation Instructions:
+1. You can download the latest release from this link: https://github.com/LPLP-ghacc/Voice-Synth-WPF/releases
+2. Download the VB-CABLE Virtual Audio Device from the official website at this link: https://vb-audio.com/Cable/index.htm either by using a direct link https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack45.zip
+3. Unpack the archive and install VBCABLE_Setup_x64.exe . The installer will require you to reboot the device to configure the driver.
+4. Next, a new Cable Input and audio input device will appear in the system. Inside the Voice Synth settings, you need to specify the output device - Cable Input, and in the audio input device (for example, in Discord), specify Cable Output.
+
+If everything is set up correctly, then you can proceed to configuring the voice synthesis engine. At the moment, three voice synthesis engines are used: SAPI is pre-installed as a standard Windows library, but there may be problems finding voices, they can be found in the Windows settings section - Accessibility -> Screenreader. If there is nothing in the list of installed voices, you need to install it manually either from the official Microsoft website or using the "Add" button in this settings section. WinRT uses the same library of voices, and is essentially a fallback for SAPI. PiperTTS uses neural voice synthesis, it will be possible to find existing voices on huggingface at this link. https://huggingface.co/rhasspy/piper-voices/tree/main read the file README.txt There is additional information in the /piper folder.
+
+<img width="900" height="669" alt="изображение" src="https://github.com/user-attachments/assets/0f6d4306-49f1-41e3-b038-5461c2e9d21e" />
