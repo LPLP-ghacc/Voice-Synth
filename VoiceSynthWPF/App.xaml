@@ -4,29 +4,34 @@
              xmlns:local="clr-namespace:VoiceSynthWPF"
              StartupUri="MainWindow.xaml">
 <Application.Resources>
-        
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <!-- Словарь строк подгружается в LocalizationManager.InitFromSystem() -->
+        </ResourceDictionary.MergedDictionaries>
+
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
-        
         <SolidColorBrush x:Key="SidebarButtonActiveBackground" Color="#22FFFFFF"/>
         
         <Color x:Key="PrimaryColor">#111</Color>
         <Brush x:Key="PrimaryBrush">#111</Brush>
         <Color x:Key="PanelsColor">#1E1E1E</Color>
-        <Brush x:Key="PanelsBrush">#1E1E1E</Brush>
+        <Brush x:Key="PanelsBrush">#881E1E1E</Brush>
         <Color x:Key="PanelsColo2">#252526</Color>
-        <Brush x:Key="PanelsBrush2">#252526</Brush>
+        <Brush x:Key="PanelsBrush2">#99252526</Brush>
         <Color x:Key="AdditionalColor">#555</Color>
         <Brush x:Key="AdditionalBrush">#555</Brush>
         <Color x:Key="AdditionalColor2">#222</Color>
         <Brush x:Key="AdditionalBrush2">#222</Brush>
-        <Color x:Key="PrimaryAccentColor">DarkRed</Color>
-        <Brush x:Key="PrimaryAccentBrush">DarkRed</Brush>
+        <Color x:Key="PrimaryAccentColor">#47000CEA</Color>
+        <Brush x:Key="PrimaryAccentBrush">#47000CEA</Brush>
         <Color x:Key="PrimaryColorA">#6B4E2C</Color>
         <Brush x:Key="PrimaryBrushA">#111</Brush>
         <Color x:Key="PrimaryTextColor">#fff</Color>
         <Brush x:Key="PrimaryTextBrush">#fff</Brush>
         <Color x:Key="GrayTextColor">#fff</Color>
         <Brush x:Key="GrayTextBrush">#81FFFFFF</Brush>
+        <Color x:Key="BlueTextColor">#880037FF</Color>
+        <Brush x:Key="BlueTextBrush">#880037FF</Brush>
         <Color x:Key="DarkBlueTextColor">#470037EA</Color>
         <Brush x:Key="DarkBlueTextBrush">#470037EA</Brush>
         
@@ -55,6 +60,113 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="FlatSliderStyle" TargetType="Slider">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="100"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBlueTextBrush}"/>
+        <Setter Property="Background" Value="#333333"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid VerticalAlignment="Center">
+                        
+                        <Border
+                            x:Name="TrackBackground"
+                            Height="4"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="2"
+                            VerticalAlignment="Center"/>
+                        <Border
+                            x:Name="TrackFill"
+                            Height="4"
+                            Background="{TemplateBinding Foreground}"
+                            CornerRadius="2"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Width="0"/>
+
+                        <Track
+                            x:Name="PART_Track"
+                            VerticalAlignment="Center"
+                            IsDirectionReversed="False">
+
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton
+                                    Command="Slider.DecreaseLarge"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsHitTestVisible="False"/>
+                            </Track.DecreaseRepeatButton>
+
+                            <Track.Thumb>
+                                <Thumb
+                                    x:Name="Thumb"
+                                    Width="14"
+                                    Height="14"
+                                    Background="{TemplateBinding Foreground}"
+                                    BorderThickness="0">
+                                    <Thumb.Template>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Border
+                                                x:Name="ThumbBorder"
+                                                Width="14"
+                                                Height="14"
+                                                Background="{TemplateBinding Background}"
+                                                CornerRadius="7"/>
+                                            
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter
+                                                        TargetName="ThumbBorder"
+                                                        Property="Width"
+                                                        Value="14"/>
+                                                    <Setter
+                                                        TargetName="ThumbBorder"
+                                                        Property="Height"
+                                                        Value="14"/>
+                                                </Trigger>
+
+                                                <Trigger Property="IsDragging" Value="True">
+                                                    <Setter
+                                                        TargetName="ThumbBorder"
+                                                        Property="Width"
+                                                        Value="14"/>
+                                                    <Setter
+                                                        TargetName="ThumbBorder"
+                                                        Property="Height"
+                                                        Value="14"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Track.Thumb>
+
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton
+                                    Command="Slider.IncreaseLarge"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsHitTestVisible="False"/>
+                            </Track.IncreaseRepeatButton>
+
+                        </Track>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
         
         <Style x:Key="FlatButtonStyle" TargetType="Button">
             <Setter Property="Padding" Value="8,8,8,8"/>
@@ -204,7 +316,7 @@
         </Style>
 
         <Style TargetType="ScrollViewer" x:Key="DarkScrollViewerStyle">
-            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#DDD"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="PanningMode" Value="Both"/>
@@ -681,5 +793,6 @@
         </Setter>
     </Style>
 
+    </ResourceDictionary>
     </Application.Resources>
 </Application>

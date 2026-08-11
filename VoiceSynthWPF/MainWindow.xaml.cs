@@ -14,16 +14,16 @@ namespace VoiceSynthWPF;
 
 public class WindowLayout
 {
-    public double Left      { get; set; } = 100;
-    public double Top       { get; set; } = 100;
-    public double Width     { get; set; } = 800;
-    public double Height    { get; set; } = 450;
-    public bool   IsCompact { get; set; } = false;
+    public double Left      { get; init; } = 100;
+    public double Top       { get; init; } = 100;
+    public double Width     { get; init; } = 800;
+    public double Height    { get; init; } = 450;
+    public bool   IsCompact { get; init; } = false;
     // Геометрия нормального режима (сохраняется даже когда активен компактный)
-    public double NormalLeft   { get; set; } = 100;
-    public double NormalTop    { get; set; } = 100;
-    public double NormalWidth  { get; set; } = 800;
-    public double NormalHeight { get; set; } = 450;
+    public double NormalLeft   { get; init; } = 100;
+    public double NormalTop    { get; init; } = 100;
+    public double NormalWidth  { get; init; } = 800;
+    public double NormalHeight { get; init; } = 450;
 
     private static readonly string Path =
         System.IO.Path.Combine(Environment.CurrentDirectory, "window.json");
@@ -38,44 +38,46 @@ public class WindowLayout
                 return JsonSerializer.Deserialize<WindowLayout>(json) ?? new WindowLayout();
             }
         }
-        catch { /* игнорируем — вернём дефолт */ }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception.StackTrace);
+        }
         return new WindowLayout();
     }
 
     public void Save()
     {
         try { File.WriteAllText(Path, JsonSerializer.Serialize(this)); }
-        catch { /* не критично */ }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception.StackTrace);
+        }
     }
 }
 
 // ─── Settings ────────────────────────────────────────────────────────────────
 
-public class Settings
+public class Settings(
+    string voiceInput,
+    int voiceSpeed,
+    int voiceVolume,
+    int stdDelay,
+    string readerName,
+    Key hotKeyBringToFront,
+    TtsProviderType ttsProvider = TtsProviderType.Sapi,
+    string language = "")
 {
-    public string VoiceInput { get; }
-    public int VoiceSpeed { get; }
-    public int VoiceVolume { get; }
-    public int StdDelay { get; }
-    public string ReaderName { get; }
-    public Key HotKeyBringToFront { get; }
-    public TtsProviderType TtsProvider { get; }
-
-    public Settings(string voiceInput, int voiceSpeed, int voiceVolume, int stdDelay,
-                    string readerName, Key hotKeyBringToFront,
-                    TtsProviderType ttsProvider = TtsProviderType.Sapi)
-    {
-        VoiceInput        = voiceInput;
-        VoiceSpeed        = voiceSpeed;
-        VoiceVolume       = voiceVolume;
-        StdDelay          = stdDelay;
-        ReaderName        = readerName;
-        HotKeyBringToFront = hotKeyBringToFront;
-        TtsProvider       = ttsProvider;
-    }
+    public string VoiceInput { get; } = voiceInput;
+    public int VoiceSpeed { get; } = voiceSpeed;
+    public int VoiceVolume { get; } = voiceVolume;
+    public int StdDelay { get; } = stdDelay;
+    public string ReaderName { get; } = readerName;
+    public Key HotKeyBringToFront { get; } = hotKeyBringToFront;
+    public TtsProviderType TtsProvider { get; } = ttsProvider;
+    public string Language { get; } = language;
 
     public static Settings Default { get; } =
-        new("CABLE Input", 0, 100, 10, "Microsoft Irina", Key.F12, TtsProviderType.Sapi);
+        new("CABLE Input", 0, 100, 10, "Microsoft Irina", Key.F12, TtsProviderType.Sapi, "");
     
     public async Task Save(string path, string fileName)
     {
@@ -179,6 +181,10 @@ public partial class MainWindow
 
         Loaded += async (_, _) =>
         {
+            // Aero Glass — нужен реальный HWND, доступен после Loaded
+            AeroGlass.Enable(this, useAcrylic: true, tintColor: 0xCC1A1A1A);
+            AeroGlass.HookCompositionChange(this, useAcrylic: true, tintColor: 0xCC1A1A1A);
+
             await InitAsync();
             // Восстанавливаем компактный режим после загрузки UI
             if (layout.IsCompact)
@@ -354,6 +360,9 @@ public partial class MainWindow
 
         Topmost = true;
         CompactInputBox.Focus();
+
+        // Переприменяем стекло после смены размеров
+        AeroGlass.Enable(this, useAcrylic: true, tintColor: 0xCC1A1A1A);
     }
 
     private void ExitCompactMode()
@@ -437,6 +446,9 @@ public partial class MainWindow
     private async Task InitAsync()
     {
         _settings = await Settings.Load(Environment.CurrentDirectory, FileName);
+        // Применяем сохранённый язык (если пустой — уже выбран системный в App.OnStartup)
+        if (!string.IsNullOrEmpty(_settings.Language))
+            LocalizationManager.SetLanguage(_settings.Language);
         await ApplySettingsAsync(_settings);
         await LoadSnippets();
     }

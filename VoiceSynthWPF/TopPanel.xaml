@@ -17,7 +17,7 @@
                                Margin="5"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                    <Button x:Name="CompactModeButton" HorizontalAlignment="Right" Width="25" Height="25" Margin="1" Style="{StaticResource FlatButtonStyle}" Click="CompactMode_Click" ToolTip="Компактный режим">
+                    <Button x:Name="CompactModeButton" HorizontalAlignment="Right" Width="25" Height="25" Margin="1" Style="{StaticResource FlatButtonStyle}" Click="CompactMode_Click" ToolTip="{DynamicResource TooltipCompactMode}">
                         <Path Data="M4 6h16 M4 12h16 M4 18h16"
                               Stroke="#CCFFFFFF"
                               StrokeThickness="1.5"

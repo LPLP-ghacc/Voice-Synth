@@ -1,0 +1,35 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- App -->
+    <sys:String x:Key="AppTitle">Voice Synth</sys:String>
+
+    <!-- TopPanel -->
+    <sys:String x:Key="TooltipCompactMode">Компактный режим</sys:String>
+    <sys:String x:Key="TooltipFullMode">Полный режим</sys:String>
+
+    <!-- MainWindow -->
+    <sys:String x:Key="AddNewSnippet">Добавить сниппет</sys:String>
+
+    <!-- SettingsWindow -->
+    <sys:String x:Key="Settings">Настройки</sys:String>
+    <sys:String x:Key="AudioOutputDevice">Аудио-устройство вывода</sys:String>
+    <sys:String x:Key="SpeechSynthEngine">Движок синтеза речи</sys:String>
+    <sys:String x:Key="Voice">Голос</sys:String>
+    <sys:String x:Key="CallOverApps">Вызов поверх приложений</sys:String>
+    <sys:String x:Key="PressAnyKey">Нажмите любую кнопку</sys:String>
+    <sys:String x:Key="SpeechSpeed">Скорость речи</sys:String>
+    <sys:String x:Key="Volume">Громкость</sys:String>
+    <sys:String x:Key="Language">Язык</sys:String>
+    <sys:String x:Key="Cancel">Отмена</sys:String>
+    <sys:String x:Key="Save">Сохранить</sys:String>
+    <sys:String x:Key="SileroHint">Установите голоса Silero (SAPI5) для лучшего качества синтеза на русском</sys:String>
+    <sys:String x:Key="SileroDownload">Скачать голоса Silero</sys:String>
+
+    <!-- SnippetCreationWindow -->
+    <sys:String x:Key="CreateSnippetTitle">Создание сниппета</sys:String>
+    <sys:String x:Key="EditSnippetTitle">Настройка кнопки</sys:String>
+
+</ResourceDictionary>

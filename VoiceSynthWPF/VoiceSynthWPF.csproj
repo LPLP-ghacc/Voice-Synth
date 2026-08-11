@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-        <ApplicationIcon>Resources\micIco.ico</ApplicationIcon>
+        <ApplicationIcon>Resources\icon128.ico</ApplicationIcon>
         <Platforms>x64</Platforms>
         <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
         <Company>LukaRepos</Company>
@@ -22,12 +22,6 @@
     <ItemGroup>
         <!-- Иконка приложения -->
         <None Remove="Resources\micIco.ico" />
-        <Content Include="Resources\micIco.ico">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-        <Content Include="Resources\micImage.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
 
         <!-- Файл настроек -->
         <Content Include="settings.json">
@@ -39,6 +33,17 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>piper\%(RecursiveDir)%(Filename)%(Extension)</Link>
         </Content>
+        <None Remove="Resources\icon128.png" />
+        <Content Include="Resources\icon128.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Remove="Resources\Strings.en.xaml" />
+      <Resource Include="Resources\Strings.en.xaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>

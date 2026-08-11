@@ -4,13 +4,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Настройки" 
+        Title="{DynamicResource Settings}" 
         WindowStartupLocation="CenterOwner"
-        Height="420" Width="520" 
+        Height="550" Width="520" 
         WindowStyle="None"
         ResizeMode="NoResize"
+        AllowsTransparency="True"
         Background="{StaticResource PanelsBrush}">
-    <Border>
+    <Border CornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
@@ -21,7 +22,7 @@
             <!-- Title Bar -->
             <Border Grid.Row="0" Background="{StaticResource PanelsBrush}" MouseLeftButtonDown="TopBar_MouseDown">
                 <Grid>
-                    <TextBlock Text="Настройки" 
+                    <TextBlock Text="{DynamicResource Settings}" 
                                Foreground="{StaticResource PrimaryTextBrush}" 
                                FontSize="16" FontWeight="Bold"
                                VerticalAlignment="Center" Margin="16,0"/>
@@ -43,7 +44,7 @@
                 <StackPanel>
 
                     <!-- Audio Device -->
-                    <TextBlock Text="Аудио-устройство вывода" 
+                    <TextBlock Text="{DynamicResource AudioOutputDevice}" 
                                Foreground="{StaticResource GrayTextBrush}" 
                                FontSize="11" Margin="0,12,0,4"/>
                     <ComboBox x:Name="DeviceComboBox" 
@@ -51,7 +52,7 @@
                               Margin="0,0,0,0"/>
 
                     <!-- TTS Provider -->
-                    <TextBlock Text="Движок синтеза речи" 
+                    <TextBlock Text="{DynamicResource SpeechSynthEngine}" 
                                Foreground="{StaticResource GrayTextBrush}" 
                                FontSize="11" Margin="0,12,0,4"/>
                     <ComboBox x:Name="ProviderComboBox"
@@ -60,27 +61,28 @@
                               Margin="0,0,0,0"/>
 
                     <!-- Voice -->
-                    <TextBlock Text="Голос" 
+                    <TextBlock Text="{DynamicResource Voice}" 
                                Foreground="{StaticResource GrayTextBrush}" 
                                FontSize="11" Margin="0,12,0,4"/>
                     <ComboBox x:Name="VoiceComboBox" 
                               Style="{StaticResource FlatComboBoxStyle}"
                               Margin="0,0,0,0"/>
                     
-                    <TextBlock Text="Вызов поверх приложений" 
+                    <TextBlock Text="{DynamicResource CallOverApps}" 
                                Foreground="{StaticResource GrayTextBrush}" 
                                FontSize="11" Margin="0,12,0,4"/>
-                    <TextBox x:Name="HotKeyBringToFront" Background="{StaticResource PrimaryBrush}" 
+                    <TextBox x:Name="HotKeyBringToFront" Style="{DynamicResource FlatTextBoxStyle}"
                              Foreground="{StaticResource GrayTextBrush}" 
                              FontWeight="Bold" 
-                             VerticalAlignment="Center" Margin="10,5,10,5" Text="Нажмите любую кнопку"
+                             VerticalAlignment="Center" Margin="10,5,10,5"
+                             Text="{DynamicResource PressAnyKey}"
                              PreviewKeyDown="InputKey_PreviewKeyDown"
                              IsReadOnly="True"
                              TextAlignment="Center"
                              Focusable="True"/>
 
                     <!-- Speed -->
-                    <TextBlock Text="Скорость речи" 
+                    <TextBlock Text="{DynamicResource SpeechSpeed}" 
                                Foreground="{StaticResource GrayTextBrush}" 
                                FontSize="11" Margin="0,12,0,4"/>
                     <Grid>
@@ -90,6 +92,7 @@
                         </Grid.ColumnDefinitions>
                         <Slider x:Name="SpeedSlider" 
                                 Grid.Column="0"
+                                Style="{DynamicResource FlatSliderStyle}"
                                 Minimum="-10" Maximum="10" 
                                 TickFrequency="1" IsSnapToTickEnabled="True"
                                 ValueChanged="SpeedSlider_ValueChanged"
@@ -103,7 +106,7 @@
                     </Grid>
 
                     <!-- Volume -->
-                    <TextBlock Text="Громкость" 
+                    <TextBlock Text="{DynamicResource Volume}" 
                                Foreground="{StaticResource GrayTextBrush}" 
                                FontSize="11" Margin="0,12,0,4"/>
                     <Grid>
@@ -115,6 +118,7 @@
                                 Grid.Column="0"
                                 Minimum="0" Maximum="100" 
                                 TickFrequency="1" IsSnapToTickEnabled="True"
+                                Style="{DynamicResource FlatSliderStyle}"
                                 ValueChanged="VolumeSlider_ValueChanged"
                                 Foreground="{StaticResource AdditionalBrush}"
                                 Margin="0,4,8,4"/>
@@ -124,6 +128,32 @@
                                    VerticalAlignment="Center"
                                    Text="100"/>
                     </Grid>
+
+                    <!-- Language -->
+                    <TextBlock Text="{DynamicResource Language}"
+                               Foreground="{StaticResource GrayTextBrush}"
+                               FontSize="11" Margin="0,12,0,4"/>
+                    <ComboBox x:Name="LanguageComboBox"
+                              Style="{StaticResource FlatComboBoxStyle}"
+                              SelectionChanged="LanguageComboBox_SelectionChanged"
+                              Margin="0,0,0,0"/>
+
+                    <!-- Silero hint -->
+                    <Border Margin="0,12,0,0" Padding="10,8" CornerRadius="6"
+                            Background="{StaticResource PanelsBrush2}">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource SileroHint}"
+                                       Foreground="{StaticResource GrayTextBrush}"
+                                       FontSize="11" TextWrapping="Wrap"/>
+                            <Button Style="{StaticResource FlatButtonStyle}"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,6,0,0"
+                                    Click="SileroDownload_Click">
+                                <TextBlock Text="{DynamicResource SileroDownload}"
+                                           Foreground="#DC0D00" FontSize="11"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
 
                 </StackPanel>
             </ScrollViewer>
@@ -139,14 +169,14 @@
                     <Button Style="{StaticResource FlatButtonStyle}" 
                             Width="90"
                             Click="Cancel_Click">
-                        <TextBlock Text="Отмена" Foreground="{StaticResource GrayTextBrush}"/>
+                        <TextBlock Text="{DynamicResource Cancel}" Foreground="{StaticResource GrayTextBrush}"/>
                     </Button>
                 </Border>
-                <Border Grid.Column="2" Margin="0,8,0,8" Height="32" BorderThickness="1" BorderBrush="DarkRed" CornerRadius="5">
+                <Border Grid.Column="2" Margin="0,8,0,8" Height="32" BorderThickness="1" BorderBrush="{StaticResource DarkBlueTextBrush}" CornerRadius="5">
                     <Button Style="{StaticResource FlatButtonStyle}" 
                             Width="90"
                             Click="Save_Click">
-                        <TextBlock Text="Сохранить" Foreground="#DC0D00"/>
+                        <TextBlock Text="{DynamicResource Save}" Foreground="{StaticResource DarkBlueTextBrush}"/>
                     </Button>
                 </Border>
             </Grid>

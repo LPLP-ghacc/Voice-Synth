@@ -1,0 +1,35 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- App -->
+    <sys:String x:Key="AppTitle">Voice Synth</sys:String>
+
+    <!-- TopPanel -->
+    <sys:String x:Key="TooltipCompactMode">Compact mode</sys:String>
+    <sys:String x:Key="TooltipFullMode">Full mode</sys:String>
+
+    <!-- MainWindow -->
+    <sys:String x:Key="AddNewSnippet">Add new Snippet</sys:String>
+
+    <!-- SettingsWindow -->
+    <sys:String x:Key="Settings">Settings</sys:String>
+    <sys:String x:Key="AudioOutputDevice">Audio output device</sys:String>
+    <sys:String x:Key="SpeechSynthEngine">Speech synthesis engine</sys:String>
+    <sys:String x:Key="Voice">Voice</sys:String>
+    <sys:String x:Key="CallOverApps">Bring to front hotkey</sys:String>
+    <sys:String x:Key="PressAnyKey">Press any key</sys:String>
+    <sys:String x:Key="SpeechSpeed">Speech speed</sys:String>
+    <sys:String x:Key="Volume">Volume</sys:String>
+    <sys:String x:Key="Language">Language</sys:String>
+    <sys:String x:Key="Cancel">Cancel</sys:String>
+    <sys:String x:Key="Save">Save</sys:String>
+    <sys:String x:Key="SileroHint">Install Silero voices (SAPI5) to get better Russian TTS quality</sys:String>
+    <sys:String x:Key="SileroDownload">Download Silero voices</sys:String>
+
+    <!-- SnippetCreationWindow -->
+    <sys:String x:Key="CreateSnippetTitle">Create snippet</sys:String>
+    <sys:String x:Key="EditSnippetTitle">Edit snippet</sys:String>
+
+</ResourceDictionary>
