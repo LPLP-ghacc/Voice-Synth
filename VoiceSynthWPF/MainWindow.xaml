@@ -7,72 +7,122 @@
         mc:Ignorable="d"
         Height="450" Width="800"
         MinHeight="450" MinWidth="800"
-        AllowsTransparency="False"
+        AllowsTransparency="True"
         WindowStyle="None"
+        WindowStartupLocation="Manual"
         Foreground="{StaticResource PrimaryTextBrush}" 
         Title="Voice Synth">
     
     <Window.Background>
-        <StaticResource ResourceKey="PanelsBrush" />
+        <SolidColorBrush Color="Transparent"/>
     </Window.Background>
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CaptionHeight="1"
             ResizeBorderThickness="4" 
             CornerRadius="5"
-            GlassFrameThickness="10"/>
+            GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
-    
-    <Grid x:Name="RootGrid" CacheMode="BitmapCache">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <local:TopPanel Grid.Row="0"/>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
 
-            <ScrollViewer x:Name="Scroll" Grid.Row="0" Grid.Column="0" Style="{StaticResource DarkScrollViewerStyle}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <TextBox  x:Name="OutputBox"  TextWrapping="Wrap" BorderBrush="Transparent" Style="{StaticResource FlatTextBoxStyle}" GotFocus="OutputBox_OnGotFocus"/>  <!-- IsReadOnly="True" -->
-            </ScrollViewer>
-            <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,1,2,1" BorderThickness="1" BorderBrush="{StaticResource AdditionalBrush}" Background="{StaticResource PanelsBrush}" CornerRadius="5">
-                <TextBox x:Name="InputBox" FontSize="16" Margin="12,0,12,0" Style="{StaticResource FlatTextBoxStyle}"
-                         Foreground="{StaticResource PrimaryTextBrush}" 
-                         FontWeight="SemiBold" 
-                         SpellCheck.IsEnabled="True"
-                         Language="ru-RU"
-                         BorderBrush="Transparent"/>
-            </Border>
+    <!-- Корневой контейнер: два режима через Visibility -->
+    <Grid x:Name="RootGrid">
 
-            <Grid Grid.Row="0" Column="1">
-                <ScrollViewer Style="{StaticResource DarkScrollViewerStyle}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="Snippets">
-                        <Border Background="{StaticResource PanelsBrush2}" CornerRadius="10" Margin="5">
-                            <Grid>
-                                <Button x:Name="CreateSnippet" Style="{StaticResource FlatButtonStyle}" Click="CreateSnippet_OnClick">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Path Data="M13.666 1.429l6.75 3.98l.096 .063l.093 .078l.106 .074a3.22 3.22 0 0 1 1.284 2.39l.005 .204v7.284c0 1.175 -.643 2.256 -1.623 2.793l-6.804 4.302c-.98 .538 -2.166 .538 -3.2 -.032l-6.695 -4.237a3.23 3.23 0 0 1 -1.678 -2.826v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098c1 -.552 2.214 -.552 3.24 .015m-1.666 6.571a1 1 0 0 0 -1 1v2h-2a1 1 0 0 0 -.993 .883l-.007 .117a1 1 0 0 0 1 1h2v2a1 1 0 0 0 .883 .993l.117 .007a1 1 0 0 0 1 -1v-2h2a1 1 0 0 0 .993 -.883l.007 -.117a1 1 0 0 0 -1 -1h-2v-2a1 1 0 0 0 -.883 -.993z" Stroke="#DC0D00" 
-                                              StrokeThickness="1" 
-                                              StrokeLineJoin="Round"
-                                              Stretch="Uniform"
-                                              Width="14" Height="14"/>
-                                        <TextBlock Grid.Column="0" x:Name="PreviewText" TextAlignment="Left" Margin="10,5,5,5" Foreground="#DC0D00" Text="Add new Snippet"/>
-                                    </StackPanel>
+        <!-- ===== НОРМАЛЬНЫЙ РЕЖИМ ===== -->
+        <Border x:Name="NormalModeBorder"
+                Background="{StaticResource PanelsBrush}"
+                CornerRadius="8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <local:TopPanel x:Name="TopPanelControl" Grid.Row="0"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="34"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                                </Button>
-                            </Grid>
+                    <ScrollViewer x:Name="Scroll" Grid.Row="0" Grid.Column="0" Style="{StaticResource DarkScrollViewerStyle}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <TextBox x:Name="OutputBox" TextWrapping="Wrap" BorderBrush="Transparent" Style="{StaticResource FlatTextBoxStyle}" GotFocus="OutputBox_OnGotFocus"/>
+                    </ScrollViewer>
 
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
+                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,1,2,2" BorderThickness="1" BorderBrush="{StaticResource AdditionalBrush}" Background="{StaticResource PanelsBrush}" CornerRadius="5">
+                        <TextBox x:Name="InputBox" FontSize="16" Margin="12,0,12,0" Style="{StaticResource FlatTextBoxStyle}"
+                                 Foreground="{StaticResource PrimaryTextBrush}" 
+                                 FontWeight="SemiBold" 
+                                 SpellCheck.IsEnabled="True"
+                                 Language="ru-RU"
+                                 BorderBrush="Transparent"/>
+                    </Border>
+
+                    <Grid Grid.Row="0" Column="1">
+                        <ScrollViewer Style="{StaticResource DarkScrollViewerStyle}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="Snippets">
+                                <Border Background="{StaticResource PanelsBrush2}" CornerRadius="10" Margin="5">
+                                    <Button x:Name="CreateSnippet" Style="{StaticResource FlatButtonStyle}" Click="CreateSnippet_OnClick">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path Data="M13.666 1.429l6.75 3.98l.096 .063l.093 .078l.106 .074a3.22 3.22 0 0 1 1.284 2.39l.005 .204v7.284c0 1.175 -.643 2.256 -1.623 2.793l-6.804 4.302c-.98 .538 -2.166 .538 -3.2 -.032l-6.695 -4.237a3.23 3.23 0 0 1 -1.678 -2.826v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098c1 -.552 2.214 -.552 3.24 .015m-1.666 6.571a1 1 0 0 0 -1 1v2h-2a1 1 0 0 0 -.993 .883l-.007 .117a1 1 0 0 0 1 1h2v2a1 1 0 0 0 .883 .993l.117 .007a1 1 0 0 0 1 -1v-2h2a1 1 0 0 0 .993 -.883l.007 -.117a1 1 0 0 0 -1 -1h-2v-2a1 1 0 0 0 -.883 -.993z" Stroke="#DC0D00" 
+                                                  StrokeThickness="1" StrokeLineJoin="Round" Stretch="Uniform" Width="14" Height="14"/>
+                                            <TextBlock TextAlignment="Left" Margin="10,5,5,5" Foreground="#DC0D00" Text="Add new Snippet"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
             </Grid>
-        </Grid>
+        </Border>
+
+        <!-- ===== КОМПАКТНЫЙ РЕЖИМ ===== -->
+        <Border x:Name="CompactModeBorder"
+                Visibility="Collapsed"
+                Background="{StaticResource PanelsBrush}"
+                CornerRadius="8"
+                BorderThickness="1"
+                BorderBrush="{StaticResource AdditionalBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Поле ввода — занимает всю ширину минус кнопка -->
+                <Border Grid.Column="0" Margin="4,3,2,3" CornerRadius="4">
+                    <TextBox x:Name="CompactInputBox"
+                             FontSize="15"
+                             Margin="8,0,8,0"
+                             Style="{StaticResource FlatTextBoxStyle}"
+                             Foreground="{StaticResource PrimaryTextBrush}"
+                             FontWeight="SemiBold"
+                             SpellCheck.IsEnabled="True"
+                             Language="ru-RU"
+                             BorderBrush="Transparent"
+                             VerticalAlignment="Center"/>
+                </Border>
+
+                <!-- Кнопка выхода из компактного режима -->
+                <Button Grid.Column="1"
+                        Width="26" Height="26"
+                        Margin="2,3,4,3"
+                        Style="{StaticResource FlatButtonStyle}"
+                        ToolTip="Полный режим"
+                        Click="CompactExpand_Click">
+                    <Path Data="M3 8h18 M3 12h18 M3 16h18"
+                          Stroke="#AAFFFFFF"
+                          StrokeThickness="1.5"
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round"
+                          Stretch="Uniform"
+                          Width="14" Height="14"/>
+                </Button>
+            </Grid>
+        </Border>
+
     </Grid>
 </Window>

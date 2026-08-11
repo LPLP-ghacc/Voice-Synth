@@ -19,6 +19,8 @@ public partial class TopPanel
 
     private void Minimize_Click(object sender, RoutedEventArgs e) => MainWindow.Instance!.WindowState = WindowState.Minimized;
 
+    private void CompactMode_Click(object sender, RoutedEventArgs e) => MainWindow.Instance!.ToggleCompactMode();
+
     private void Settings_Click(object sender, RoutedEventArgs e)
     {
         _ = MainWindow.Instance!.OpenSettingsAsync();
