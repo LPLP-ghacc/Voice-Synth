@@ -2,402 +2,43 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net10.0-windows</TargetFramework>
+        <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>Resources\micIco.ico</ApplicationIcon>
+        <Platforms>x64</Platforms>
+        <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+        <Company>LukaRepos</Company>
+        <Product>VoiceSynth</Product>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ConseqConcatenation" Version="1.0.5" />
-      <PackageReference Include="NAudio" Version="2.2.1" />
-      <PackageReference Include="System.Speech" Version="11.0.0-preview.1.26104.118" />
+        <PackageReference Include="ConseqConcatenation" Version="1.0.5" />
+        <PackageReference Include="NAudio" Version="2.2.1" />
+        <PackageReference Include="System.Speech" Version="11.0.0-preview.1.26104.118" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\micIco.ico" />
-      <Content Include="Resources\micIco.ico">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Resources\micImage.png" />
-      <Content Include="Resources\micImage.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Resources\settings.svg" />
-      <None Remove="piper\espeak-ng-data\af_dict" />
-      <None Remove="piper\espeak-ng-data\am_dict" />
-      <None Remove="piper\espeak-ng-data\an_dict" />
-      <None Remove="piper\espeak-ng-data\ar_dict" />
-      <None Remove="piper\espeak-ng-data\as_dict" />
-      <None Remove="piper\espeak-ng-data\az_dict" />
-      <None Remove="piper\espeak-ng-data\ba_dict" />
-      <None Remove="piper\espeak-ng-data\be_dict" />
-      <None Remove="piper\espeak-ng-data\bg_dict" />
-      <None Remove="piper\espeak-ng-data\bn_dict" />
-      <None Remove="piper\espeak-ng-data\bpy_dict" />
-      <None Remove="piper\espeak-ng-data\bs_dict" />
-      <None Remove="piper\espeak-ng-data\ca_dict" />
-      <None Remove="piper\espeak-ng-data\chr_dict" />
-      <None Remove="piper\espeak-ng-data\cmn_dict" />
-      <None Remove="piper\espeak-ng-data\cs_dict" />
-      <None Remove="piper\espeak-ng-data\cv_dict" />
-      <None Remove="piper\espeak-ng-data\cy_dict" />
-      <None Remove="piper\espeak-ng-data\da_dict" />
-      <None Remove="piper\espeak-ng-data\de_dict" />
-      <None Remove="piper\espeak-ng-data\el_dict" />
-      <None Remove="piper\espeak-ng-data\en_dict" />
-      <None Remove="piper\espeak-ng-data\eo_dict" />
-      <None Remove="piper\espeak-ng-data\es_dict" />
-      <None Remove="piper\espeak-ng-data\et_dict" />
-      <None Remove="piper\espeak-ng-data\eu_dict" />
-      <None Remove="piper\espeak-ng-data\fa_dict" />
-      <None Remove="piper\espeak-ng-data\fi_dict" />
-      <None Remove="piper\espeak-ng-data\fr_dict" />
-      <None Remove="piper\espeak-ng-data\ga_dict" />
-      <None Remove="piper\espeak-ng-data\gd_dict" />
-      <None Remove="piper\espeak-ng-data\gn_dict" />
-      <None Remove="piper\espeak-ng-data\grc_dict" />
-      <None Remove="piper\espeak-ng-data\gu_dict" />
-      <None Remove="piper\espeak-ng-data\hak_dict" />
-      <None Remove="piper\espeak-ng-data\haw_dict" />
-      <None Remove="piper\espeak-ng-data\he_dict" />
-      <None Remove="piper\espeak-ng-data\hi_dict" />
-      <None Remove="piper\espeak-ng-data\hr_dict" />
-      <None Remove="piper\espeak-ng-data\ht_dict" />
-      <None Remove="piper\espeak-ng-data\hu_dict" />
-      <None Remove="piper\espeak-ng-data\hy_dict" />
-      <None Remove="piper\espeak-ng-data\ia_dict" />
-      <None Remove="piper\espeak-ng-data\id_dict" />
-      <None Remove="piper\espeak-ng-data\intonations" />
-      <None Remove="piper\espeak-ng-data\io_dict" />
-      <None Remove="piper\espeak-ng-data\is_dict" />
-      <None Remove="piper\espeak-ng-data\it_dict" />
-      <None Remove="piper\espeak-ng-data\ja_dict" />
-      <None Remove="piper\espeak-ng-data\jbo_dict" />
-      <None Remove="piper\espeak-ng-data\ka_dict" />
-      <None Remove="piper\espeak-ng-data\kk_dict" />
-      <None Remove="piper\espeak-ng-data\kl_dict" />
-      <None Remove="piper\espeak-ng-data\kn_dict" />
-      <None Remove="piper\espeak-ng-data\ko_dict" />
-      <None Remove="piper\espeak-ng-data\kok_dict" />
-      <None Remove="piper\espeak-ng-data\ku_dict" />
-      <None Remove="piper\espeak-ng-data\ky_dict" />
-      <None Remove="piper\espeak-ng-data\la_dict" />
-      <None Remove="piper\espeak-ng-data\lb_dict" />
-      <None Remove="piper\espeak-ng-data\lfn_dict" />
-      <None Remove="piper\espeak-ng-data\lt_dict" />
-      <None Remove="piper\espeak-ng-data\lv_dict" />
-      <None Remove="piper\espeak-ng-data\mi_dict" />
-      <None Remove="piper\espeak-ng-data\mk_dict" />
-      <None Remove="piper\espeak-ng-data\ml_dict" />
-      <None Remove="piper\espeak-ng-data\mr_dict" />
-      <None Remove="piper\espeak-ng-data\ms_dict" />
-      <None Remove="piper\espeak-ng-data\mt_dict" />
-      <None Remove="piper\espeak-ng-data\mto_dict" />
-      <None Remove="piper\espeak-ng-data\my_dict" />
-      <None Remove="piper\espeak-ng-data\nci_dict" />
-      <None Remove="piper\espeak-ng-data\ne_dict" />
-      <None Remove="piper\espeak-ng-data\nl_dict" />
-      <None Remove="piper\espeak-ng-data\no_dict" />
-      <None Remove="piper\espeak-ng-data\nog_dict" />
-      <None Remove="piper\espeak-ng-data\om_dict" />
-      <None Remove="piper\espeak-ng-data\or_dict" />
-      <None Remove="piper\espeak-ng-data\pa_dict" />
-      <None Remove="piper\espeak-ng-data\pap_dict" />
-      <None Remove="piper\espeak-ng-data\phondata" />
-      <None Remove="piper\espeak-ng-data\phondata-manifest" />
-      <None Remove="piper\espeak-ng-data\phonindex" />
-      <None Remove="piper\espeak-ng-data\phontab" />
-      <None Remove="piper\espeak-ng-data\piqd_dict" />
-      <None Remove="piper\espeak-ng-data\pl_dict" />
-      <None Remove="piper\espeak-ng-data\pt_dict" />
-      <None Remove="piper\espeak-ng-data\py_dict" />
-      <None Remove="piper\espeak-ng-data\qdb_dict" />
-      <None Remove="piper\espeak-ng-data\qu_dict" />
-      <None Remove="piper\espeak-ng-data\quc_dict" />
-      <None Remove="piper\espeak-ng-data\qya_dict" />
-      <None Remove="piper\espeak-ng-data\ro_dict" />
-      <None Remove="piper\espeak-ng-data\ru_dict" />
-      <None Remove="piper\espeak-ng-data\sd_dict" />
-      <None Remove="piper\espeak-ng-data\shn_dict" />
-      <None Remove="piper\espeak-ng-data\si_dict" />
-      <None Remove="piper\espeak-ng-data\sjn_dict" />
-      <None Remove="piper\espeak-ng-data\sk_dict" />
-      <None Remove="piper\espeak-ng-data\sl_dict" />
-      <None Remove="piper\espeak-ng-data\smj_dict" />
-      <None Remove="piper\espeak-ng-data\sq_dict" />
-      <None Remove="piper\espeak-ng-data\sr_dict" />
-      <None Remove="piper\espeak-ng-data\sv_dict" />
-      <None Remove="piper\espeak-ng-data\sw_dict" />
-      <None Remove="piper\espeak-ng-data\ta_dict" />
-      <None Remove="piper\espeak-ng-data\te_dict" />
-      <None Remove="piper\espeak-ng-data\th_dict" />
-      <None Remove="piper\espeak-ng-data\tk_dict" />
-      <None Remove="piper\espeak-ng-data\tn_dict" />
-      <None Remove="piper\espeak-ng-data\tr_dict" />
-      <None Remove="piper\espeak-ng-data\tt_dict" />
-      <None Remove="piper\espeak-ng-data\ug_dict" />
-      <None Remove="piper\espeak-ng-data\uk_dict" />
-      <None Remove="piper\espeak-ng-data\ur_dict" />
-      <None Remove="piper\espeak-ng-data\uz_dict" />
-      <None Remove="piper\espeak-ng-data\vi_dict" />
-      <None Remove="piper\espeak-ng-data\yue_dict" />
-      <None Remove="piper\espeak-ng-data\voices\!v\adam" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Alex" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Alicia" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Andrea" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Andy" />
-      <None Remove="piper\espeak-ng-data\voices\!v\anika" />
-      <None Remove="piper\espeak-ng-data\voices\!v\anikaRobot" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Annie" />
-      <None Remove="piper\espeak-ng-data\voices\!v\announcer" />
-      <None Remove="piper\espeak-ng-data\voices\!v\antonio" />
-      <None Remove="piper\espeak-ng-data\voices\!v\AnxiousAndy" />
-      <None Remove="piper\espeak-ng-data\voices\!v\aunty" />
-      <None Remove="piper\espeak-ng-data\voices\!v\belinda" />
-      <None Remove="piper\espeak-ng-data\voices\!v\benjamin" />
-      <None Remove="piper\espeak-ng-data\voices\!v\boris" />
-      <None Remove="piper\espeak-ng-data\voices\!v\caleb" />
-      <None Remove="piper\espeak-ng-data\voices\!v\croak" />
-      <None Remove="piper\espeak-ng-data\voices\!v\david" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Demonic" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Denis" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Diogo" />
-      <None Remove="piper\espeak-ng-data\voices\!v\ed" />
-      <None Remove="piper\espeak-ng-data\voices\!v\edward" />
-      <None Remove="piper\espeak-ng-data\voices\!v\edward2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\f1" />
-      <None Remove="piper\espeak-ng-data\voices\!v\f2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\f3" />
-      <None Remove="piper\espeak-ng-data\voices\!v\f4" />
-      <None Remove="piper\espeak-ng-data\voices\!v\f5" />
-      <None Remove="piper\espeak-ng-data\voices\!v\fast" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Gene" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Gene2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\grandma" />
-      <None Remove="piper\espeak-ng-data\voices\!v\grandpa" />
-      <None Remove="piper\espeak-ng-data\voices\!v\gustave" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Henrique" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Hugo" />
-      <None Remove="piper\espeak-ng-data\voices\!v\ian" />
-      <None Remove="piper\espeak-ng-data\voices\!v\iven" />
-      <None Remove="piper\espeak-ng-data\voices\!v\iven2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\iven3" />
-      <None Remove="piper\espeak-ng-data\voices\!v\iven4" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Jacky" />
-      <None Remove="piper\espeak-ng-data\voices\!v\john" />
-      <None Remove="piper\espeak-ng-data\voices\!v\kaukovalta" />
-      <None Remove="piper\espeak-ng-data\voices\!v\klatt" />
-      <None Remove="piper\espeak-ng-data\voices\!v\klatt2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\klatt3" />
-      <None Remove="piper\espeak-ng-data\voices\!v\klatt4" />
-      <None Remove="piper\espeak-ng-data\voices\!v\klatt5" />
-      <None Remove="piper\espeak-ng-data\voices\!v\klatt6" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Lee" />
-      <None Remove="piper\espeak-ng-data\voices\!v\linda" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m1" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m3" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m4" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m5" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m6" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m7" />
-      <None Remove="piper\espeak-ng-data\voices\!v\m8" />
-      <None Remove="piper\espeak-ng-data\voices\!v\marcelo" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Marco" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Mario" />
-      <None Remove="piper\espeak-ng-data\voices\!v\max" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Michael" />
-      <None Remove="piper\espeak-ng-data\voices\!v\michel" />
-      <None Remove="piper\espeak-ng-data\voices\!v\miguel" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Mike" />
-      <None Remove="piper\espeak-ng-data\voices\!v\mike2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Mr serious" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Nguyen" />
-      <None Remove="piper\espeak-ng-data\voices\!v\norbert" />
-      <None Remove="piper\espeak-ng-data\voices\!v\pablo" />
-      <None Remove="piper\espeak-ng-data\voices\!v\paul" />
-      <None Remove="piper\espeak-ng-data\voices\!v\pedro" />
-      <None Remove="piper\espeak-ng-data\voices\!v\quincy" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Reed" />
-      <None Remove="piper\espeak-ng-data\voices\!v\RicishayMax" />
-      <None Remove="piper\espeak-ng-data\voices\!v\RicishayMax2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\RicishayMax3" />
-      <None Remove="piper\espeak-ng-data\voices\!v\rob" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robert" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft3" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft4" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft5" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft6" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft7" />
-      <None Remove="piper\espeak-ng-data\voices\!v\robosoft8" />
-      <None Remove="piper\espeak-ng-data\voices\!v\sandro" />
-      <None Remove="piper\espeak-ng-data\voices\!v\shelby" />
-      <None Remove="piper\espeak-ng-data\voices\!v\steph" />
-      <None Remove="piper\espeak-ng-data\voices\!v\steph2" />
-      <None Remove="piper\espeak-ng-data\voices\!v\steph3" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Storm" />
-      <None Remove="piper\espeak-ng-data\voices\!v\travis" />
-      <None Remove="piper\espeak-ng-data\voices\!v\Tweaky" />
-      <None Remove="piper\espeak-ng-data\voices\!v\UniRobot" />
-      <None Remove="piper\espeak-ng-data\voices\!v\victor" />
-      <None Remove="piper\espeak-ng-data\voices\!v\whisper" />
-      <None Remove="piper\espeak-ng-data\voices\!v\whisperf" />
-      <None Remove="piper\espeak-ng-data\voices\!v\zac" />
-      <None Remove="piper\espeak-ng-data\lang\zlw\sk" />
-      <None Remove="piper\espeak-ng-data\lang\zlw\pl" />
-      <None Remove="piper\espeak-ng-data\lang\ira\fa" />
-      <None Remove="piper\espeak-ng-data\lang\ira\fa-Latn" />
-      <None Remove="piper\espeak-ng-data\lang\ira\ku" />
-      <None Remove="piper\espeak-ng-data\lang\zle\ru-LV" />
-      <None Remove="piper\espeak-ng-data\lang\zle\ru-cl" />
-      <None Remove="piper\espeak-ng-data\lang\sai\gn" />
-      <None Remove="piper\espeak-ng-data\lang\zle\be" />
-      <None Remove="piper\espeak-ng-data\lang\zle\uk" />
-      <None Remove="piper\espeak-ng-data\lang\zle\ru" />
-      <None Remove="piper\espeak-ng-data\lang\urj\fi" />
-      <None Remove="piper\espeak-ng-data\lang\urj\et" />
-      <None Remove="piper\espeak-ng-data\lang\urj\smj" />
-      <None Remove="piper\espeak-ng-data\lang\urj\hu" />
-      <None Remove="piper\espeak-ng-data\lang\trk\uz" />
-      <None Remove="piper\espeak-ng-data\lang\trk\ug" />
-      <None Remove="piper\espeak-ng-data\lang\trk\nog" />
-      <None Remove="piper\espeak-ng-data\lang\trk\tk" />
-      <None Remove="piper\espeak-ng-data\lang\trk\ky" />
-      <None Remove="piper\espeak-ng-data\lang\trk\tt" />
-      <None Remove="piper\espeak-ng-data\lang\trk\tr" />
-      <None Remove="piper\espeak-ng-data\lang\trk\ba" />
-      <None Remove="piper\espeak-ng-data\lang\trk\az" />
-      <None Remove="piper\espeak-ng-data\lang\trk\kk" />
-      <None Remove="piper\espeak-ng-data\lang\trk\cv" />
-      <None Remove="piper\espeak-ng-data\lang\tai\th" />
-      <None Remove="piper\espeak-ng-data\lang\tai\shn" />
-      <None Remove="piper\espeak-ng-data\lang\sit\yue" />
-      <None Remove="piper\espeak-ng-data\lang\sit\hak" />
-      <None Remove="piper\espeak-ng-data\lang\sit\yue-Latn-jyutping" />
-      <None Remove="piper\espeak-ng-data\lang\sit\cmn-Latn-pinyin" />
-      <None Remove="piper\espeak-ng-data\lang\sem\mt" />
-      <None Remove="piper\espeak-ng-data\lang\sit\cmn" />
-      <None Remove="piper\espeak-ng-data\lang\sit\my" />
-      <None Remove="piper\espeak-ng-data\lang\sem\am" />
-      <None Remove="piper\espeak-ng-data\lang\sem\he" />
-      <None Remove="piper\espeak-ng-data\lang\sem\ar" />
-      <None Remove="piper\espeak-ng-data\lang\roa\fr-CH" />
-      <None Remove="piper\espeak-ng-data\lang\roa\fr-BE" />
-      <None Remove="piper\espeak-ng-data\lang\roa\es-419" />
-      <None Remove="piper\espeak-ng-data\lang\roa\pt-BR" />
-      <None Remove="piper\espeak-ng-data\lang\roa\pt" />
-      <None Remove="piper\espeak-ng-data\lang\roa\it" />
-      <None Remove="piper\espeak-ng-data\lang\roa\pap" />
-      <None Remove="piper\espeak-ng-data\lang\roa\ro" />
-      <None Remove="piper\espeak-ng-data\lang\roa\es" />
-      <None Remove="piper\espeak-ng-data\lang\roa\ca" />
-      <None Remove="piper\espeak-ng-data\lang\roa\ht" />
-      <None Remove="piper\espeak-ng-data\lang\roa\fr" />
-      <None Remove="piper\espeak-ng-data\lang\iro\chr" />
-      <None Remove="piper\espeak-ng-data\lang\roa\an" />
-      <None Remove="piper\espeak-ng-data\lang\gmq\sv" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\de" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\af" />
-      <None Remove="piper\espeak-ng-data\lang\gmq\da" />
-      <None Remove="piper\espeak-ng-data\lang\gmq\nb" />
-      <None Remove="piper\espeak-ng-data\lang\gmq\is" />
-      <None Remove="piper\espeak-ng-data\lang\dra\te" />
-      <None Remove="piper\espeak-ng-data\lang\dra\ta" />
-      <None Remove="piper\espeak-ng-data\lang\esx\kl" />
-      <None Remove="piper\espeak-ng-data\lang\cus\om" />
-      <None Remove="piper\espeak-ng-data\lang\dra\ml" />
-      <None Remove="piper\espeak-ng-data\lang\dra\kn" />
-      <None Remove="piper\espeak-ng-data\lang\zls\sr" />
-      <None Remove="piper\espeak-ng-data\lang\ccs\ka" />
-      <None Remove="piper\espeak-ng-data\lang\zls\hr" />
-      <None Remove="piper\espeak-ng-data\lang\zls\bs" />
-      <None Remove="piper\espeak-ng-data\lang\zls\sl" />
-      <None Remove="piper\espeak-ng-data\lang\zls\mk" />
-      <None Remove="piper\espeak-ng-data\lang\bnt\tn" />
-      <None Remove="piper\espeak-ng-data\lang\bnt\sw" />
-      <None Remove="piper\espeak-ng-data\lang\zls\bg" />
-      <None Remove="piper\espeak-ng-data\lang\bat\lv" />
-      <None Remove="piper\espeak-ng-data\lang\bat\lt" />
-      <None Remove="piper\espeak-ng-data\lang\bat\ltg" />
-      <None Remove="piper\espeak-ng-data\lang\art\piqd" />
-      <None Remove="piper\espeak-ng-data\lang\azc\nci" />
-      <None Remove="piper\espeak-ng-data\lang\art\qdb" />
-      <None Remove="piper\espeak-ng-data\lang\art\lfn" />
-      <None Remove="piper\espeak-ng-data\lang\art\sjn" />
-      <None Remove="piper\espeak-ng-data\lang\art\qya" />
-      <None Remove="piper\espeak-ng-data\lang\art\io" />
-      <None Remove="piper\espeak-ng-data\lang\art\ia" />
-      <None Remove="piper\espeak-ng-data\lang\art\jbo" />
-      <None Remove="piper\espeak-ng-data\lang\art\py" />
-      <None Remove="piper\espeak-ng-data\lang\aav\vi-VN-x-central" />
-      <None Remove="piper\espeak-ng-data\lang\aav\vi-VN-x-south" />
-      <None Remove="piper\espeak-ng-data\lang\art\eo" />
-      <None Remove="piper\espeak-ng-data\lang\inc\kok" />
-      <None Remove="piper\espeak-ng-data\lang\inc\bpy" />
-      <None Remove="piper\espeak-ng-data\lang\aav\vi" />
-      <None Remove="piper\espeak-ng-data\lang\inc\sd" />
-      <None Remove="piper\espeak-ng-data\lang\inc\pa" />
-      <None Remove="piper\espeak-ng-data\lang\inc\ur" />
-      <None Remove="piper\espeak-ng-data\lang\inc\si" />
-      <None Remove="piper\espeak-ng-data\lang\inc\mr" />
-      <None Remove="piper\espeak-ng-data\lang\inc\hi" />
-      <None Remove="piper\espeak-ng-data\lang\inc\or" />
-      <None Remove="piper\espeak-ng-data\lang\inc\ne" />
-      <None Remove="piper\espeak-ng-data\lang\inc\as" />
-      <None Remove="piper\espeak-ng-data\lang\inc\gu" />
-      <None Remove="piper\espeak-ng-data\lang\inc\bn" />
-      <None Remove="piper\espeak-ng-data\lang\poz\id" />
-      <None Remove="piper\espeak-ng-data\lang\poz\ms" />
-      <None Remove="piper\espeak-ng-data\lang\poz\mi" />
-      <None Remove="piper\espeak-ng-data\lang\miz\mto" />
-      <None Remove="piper\espeak-ng-data\lang\myn\quc" />
-      <None Remove="piper\espeak-ng-data\lang\jpx\ja" />
-      <None Remove="piper\espeak-ng-data\lang\map\haw" />
-      <None Remove="piper\espeak-ng-data\lang\ine\hyw" />
-      <None Remove="piper\espeak-ng-data\lang\ine\sq" />
-      <None Remove="piper\espeak-ng-data\lang\itc\la" />
-      <None Remove="piper\espeak-ng-data\lang\ine\hy" />
-      <None Remove="piper\espeak-ng-data\lang\qu" />
-      <None Remove="piper\espeak-ng-data\lang\cel\gd" />
-      <None Remove="piper\espeak-ng-data\lang\eu" />
-      <None Remove="piper\espeak-ng-data\lang\ko" />
-      <None Remove="piper\espeak-ng-data\lang\grk\grc" />
-      <None Remove="piper\espeak-ng-data\lang\cel\ga" />
-      <None Remove="piper\espeak-ng-data\lang\cel\cy" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en-GB-x-gbcwmd" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en-GB-x-gbclan" />
-      <None Remove="piper\espeak-ng-data\lang\grk\el" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en-US-nyc" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en-029" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en-GB-scotland" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en-GB-x-rp" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\lb" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\en-US" />
-      <None Remove="piper\espeak-ng-data\lang\gmw\nl" />
-      <None Remove="piper\espeak-ng-data\lang\zlw\cs" />
-      <None Remove="piper\ru_RU-irina-medium.onnx" />
-      <None Remove="piper\ru_RU-irina-medium.onnx.json" />
-    </ItemGroup>
+        <!-- Иконка приложения -->
+        <None Remove="Resources\micIco.ico" />
+        <Content Include="Resources\micIco.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Resources\micImage.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
 
-    <ItemGroup>
-      <None Remove="piper\espeak-ng.dll" />
-      <None Remove="piper\libtashkeel_model.ort" />
-      <None Remove="piper\onnxruntime.dll" />
-      <None Remove="piper\onnxruntime_providers_shared.dll" />
-      <None Remove="piper\piper.exe" />
-      <None Remove="piper\piper_phonemize.dll" />
-    </ItemGroup>
+        <!-- Файл настроек -->
+        <Content Include="settings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
 
-    <ItemGroup>
-      <None Remove="settings.json" />
-      <Resource Include="settings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
+        <!-- Piper TTS: все файлы рекурсивно, структура папок сохраняется -->
+        <Content Include="piper\**\*" Condition="Exists('piper')">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>piper\%(RecursiveDir)%(Filename)%(Extension)</Link>
+        </Content>
     </ItemGroup>
 
 </Project>

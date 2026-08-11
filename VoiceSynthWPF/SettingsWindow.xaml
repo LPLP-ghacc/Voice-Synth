@@ -50,6 +50,15 @@
                               Style="{StaticResource FlatComboBoxStyle}"
                               Margin="0,0,0,0"/>
 
+                    <!-- TTS Provider -->
+                    <TextBlock Text="Движок синтеза речи" 
+                               Foreground="{StaticResource GrayTextBrush}" 
+                               FontSize="11" Margin="0,12,0,4"/>
+                    <ComboBox x:Name="ProviderComboBox"
+                              Style="{StaticResource FlatComboBoxStyle}"
+                              SelectionChanged="ProviderComboBox_SelectionChanged"
+                              Margin="0,0,0,0"/>
+
                     <!-- Voice -->
                     <TextBlock Text="Голос" 
                                Foreground="{StaticResource GrayTextBrush}" 

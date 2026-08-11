@@ -59,18 +59,23 @@ public class Settings
     public int StdDelay { get; }
     public string ReaderName { get; }
     public Key HotKeyBringToFront { get; }
+    public TtsProviderType TtsProvider { get; }
 
-    public Settings(string voiceInput, int voiceSpeed, int voiceVolume, int stdDelay, string readerName, Key hotKeyBringToFront) 
+    public Settings(string voiceInput, int voiceSpeed, int voiceVolume, int stdDelay,
+                    string readerName, Key hotKeyBringToFront,
+                    TtsProviderType ttsProvider = TtsProviderType.Sapi)
     {
-        VoiceInput = voiceInput;
-        VoiceSpeed = voiceSpeed;
-        VoiceVolume = voiceVolume;
-        StdDelay = stdDelay;
-        ReaderName = readerName;
+        VoiceInput        = voiceInput;
+        VoiceSpeed        = voiceSpeed;
+        VoiceVolume       = voiceVolume;
+        StdDelay          = stdDelay;
+        ReaderName        = readerName;
         HotKeyBringToFront = hotKeyBringToFront;
+        TtsProvider       = ttsProvider;
     }
 
-    public static Settings Default { get; } = new("CABLE Input", 0, 100, 10, "Microsoft Irina", Key.F12);
+    public static Settings Default { get; } =
+        new("CABLE Input", 0, 100, 10, "Microsoft Irina", Key.F12, TtsProviderType.Sapi);
     
     public async Task Save(string path, string fileName)
     {
@@ -133,7 +138,7 @@ public partial class MainWindow
 {
     public static MainWindow? Instance;
     private static Settings? _settings;
-    private SpeechSynthesizer? _synth;
+    private ITtsProvider? _ttsProvider;
     private MMDevice? _cableDevice;
 
     private readonly Action<string> _synthHandler;
@@ -216,18 +221,17 @@ public partial class MainWindow
             {
                 case Key.Enter when !string.IsNullOrEmpty(InputBox.Text.Trim()):
                     onMessageSend.Invoke(InputBox.Text.Trim());
+                    e.Handled = true;
                     break;
                 case Key.Up:
                     NavigateHistory(InputBox, -1);
+                    e.Handled = true;
                     break;
                 case Key.Down:
                     NavigateHistory(InputBox, +1);
+                    e.Handled = true;
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-
-            e.Handled = true;
         };
 
         CompactInputBox.PreviewKeyDown += (_, e) =>
@@ -240,19 +244,18 @@ public partial class MainWindow
                     PushHistory(text);
                     CompactInputBox.Text = string.Empty;
                     _synthHandler.Invoke(text);
+                    e.Handled = true;
                     break;
                 }
                 case Key.Up:
                     NavigateHistory(CompactInputBox, -1);
+                    e.Handled = true;
                     break;
                 case Key.Down:
                     NavigateHistory(CompactInputBox, +1);
+                    e.Handled = true;
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-
-            e.Handled = true;
         };
 
         // Snap к краям при перемещении компактного окна
@@ -438,20 +441,14 @@ public partial class MainWindow
         await LoadSnippets();
     }
 
-    /// <summary>
-    /// Применяет настройки: выбирает аудиоустройство и синтезатор.
-    /// Возвращает false если аудиоустройство не найдено.
-    /// </summary>
     private async Task<bool> ApplySettingsAsync(Settings settings)
     {
-        // Dispose old synth if exists
-        _synth?.Dispose();
-        _synth = null;
+        _ttsProvider?.Dispose();
+        _ttsProvider = null;
 
         var enumerator = new MMDeviceEnumerator();
         var allDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active).ToList();
 
-        // Ищем точное совпадение, затем частичное
         _cableDevice = allDevices.FirstOrDefault(d => d.FriendlyName == settings.VoiceInput)
                     ?? allDevices.FirstOrDefault(d => d.FriendlyName.Contains(settings.VoiceInput));
 
@@ -464,36 +461,19 @@ public partial class MainWindow
             return false;
         }
 
-#pragma warning disable CA1416
-        _synth = new SpeechSynthesizer();
-        _synth.Rate = settings.VoiceSpeed;
-        _synth.Volume = settings.VoiceVolume;
-
-        var voices = _synth.GetInstalledVoices().ToList();
-        Log($"Найдено голосов: {voices.Count}");
-        foreach (var item in voices)
-            Log($"  • {item.VoiceInfo.Name}");
-
-        var selectedVoice = voices.FirstOrDefault(v => v.VoiceInfo.Name == settings.ReaderName);
-        if (selectedVoice != null)
+        try
         {
-            _synth.SelectVoice(settings.ReaderName);
+            _ttsProvider = TtsProviderFactory.Create(settings);
+            var voices = _ttsProvider.GetVoices();
+            Log($"Провайдер: {settings.TtsProvider} | Найдено голосов: {voices.Count}");
+            foreach (var v in voices) Log($"  • {v}");
             Log($"Выбран голос: {settings.ReaderName}");
         }
-        else if (voices.Count > 0)
+        catch (Exception ex)
         {
-            var fallback = voices[0].VoiceInfo.Name;
-            _synth.SelectVoice(fallback);
-            Log($"[ПРЕДУПРЕЖДЕНИЕ] Голос '{settings.ReaderName}' не найден, используется: {fallback}");
-        }
-        else
-        {
-            Log("[ОШИБКА] Не найдено ни одного установленного голоса TTS.");
-            _synth.Dispose();
-            _synth = null;
+            Log($"[ОШИБКА] Не удалось создать TTS провайдер: {ex.Message}");
             return false;
         }
-#pragma warning restore CA1416
 
         await Task.CompletedTask;
         return true;
@@ -518,9 +498,9 @@ public partial class MainWindow
     
     private async Task SynthAsync(string text)
     {
-        if (_synth == null)
+        if (_ttsProvider == null)
         {
-            Log("[ОШИБКА] Синтезатор речи не инициализирован. Проверьте настройки.");
+            Log("[ОШИБКА] TTS провайдер не инициализирован. Проверьте настройки.");
             return;
         }
 
@@ -530,31 +510,22 @@ public partial class MainWindow
             return;
         }
 
-        var tcs = new TaskCompletionSource();
-
         Log($"=> {text}");
 
-        using var ms = new MemoryStream();
+        var audioStream = await Task.Run(() => _ttsProvider.SynthToStreamAsync(text));
 
-#pragma warning disable CA1416
-        _synth.SetOutputToWaveStream(ms);
-        await Task.Run(() => _synth.Speak(text));
-#pragma warning restore CA1416
-
-        ms.Position = 0;
-
-        var reader = new WaveFileReader(ms);
+        var tcs      = new TaskCompletionSource();
+        var reader   = new WaveFileReader(audioStream);
         var wasapiOut = new WasapiOut(_cableDevice, AudioClientShareMode.Shared, false, 100);
 
         wasapiOut.Init(reader);
-
         wasapiOut.PlaybackStopped += (_, _) =>
         {
             wasapiOut.Dispose();
             reader.Dispose();
+            audioStream.Dispose();
             tcs.TrySetResult();
         };
-
         wasapiOut.Play();
 
         await tcs.Task;
