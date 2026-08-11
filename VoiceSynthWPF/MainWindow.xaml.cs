@@ -150,7 +150,7 @@ public partial class MainWindow
     private const int    SnapDistance  = 20; // px до края для "прилипания"
 
     // История ввода (как в консоли)
-    private readonly List<string> _inputHistory = new();
+    private readonly List<string> _inputHistory = [];
     private int _historyIndex = -1; // -1 = не в режиме истории
 
     public MainWindow()
@@ -216,17 +216,18 @@ public partial class MainWindow
             {
                 case Key.Enter when !string.IsNullOrEmpty(InputBox.Text.Trim()):
                     onMessageSend.Invoke(InputBox.Text.Trim());
-                    e.Handled = true;
                     break;
                 case Key.Up:
                     NavigateHistory(InputBox, -1);
-                    e.Handled = true;
                     break;
                 case Key.Down:
                     NavigateHistory(InputBox, +1);
-                    e.Handled = true;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+
+            e.Handled = true;
         };
 
         CompactInputBox.PreviewKeyDown += (_, e) =>
@@ -239,18 +240,19 @@ public partial class MainWindow
                     PushHistory(text);
                     CompactInputBox.Text = string.Empty;
                     _synthHandler.Invoke(text);
-                    e.Handled = true;
                     break;
                 }
                 case Key.Up:
                     NavigateHistory(CompactInputBox, -1);
-                    e.Handled = true;
                     break;
                 case Key.Down:
                     NavigateHistory(CompactInputBox, +1);
-                    e.Handled = true;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+
+            e.Handled = true;
         };
 
         // Snap к краям при перемещении компактного окна
@@ -274,6 +276,7 @@ public partial class MainWindow
         _historyIndex = -1; // сбрасываем курсор истории
     }
 
+    /// <param name="box"></param>
     /// <param name="direction">-1 = вверх (старее), +1 = вниз (новее)</param>
     private void NavigateHistory(System.Windows.Controls.TextBox box, int direction)
     {
@@ -378,54 +381,51 @@ public partial class MainWindow
     {
         var screen = System.Windows.SystemParameters.WorkArea;
 
-        double distLeft   = Math.Abs(Left - screen.Left);
-        double distRight  = Math.Abs((Left + Width) - screen.Right);
-        double distTop    = Math.Abs(Top - screen.Top);
-        double distBottom = Math.Abs((Top + Height) - screen.Bottom);
+        var distLeft   = Math.Abs(Left - screen.Left);
+        var distRight  = Math.Abs((Left + Width) - screen.Right);
+        var distTop    = Math.Abs(Top - screen.Top);
+        var distBottom = Math.Abs((Top + Height) - screen.Bottom);
 
-        double minHoriz = Math.Min(distLeft, distRight);
-        double minVert  = Math.Min(distTop, distBottom);
+        var minHoriz = Math.Min(distLeft, distRight);
+        var minVert  = Math.Min(distTop, distBottom);
 
-        if (minHoriz < SnapDistance || minVert < SnapDistance)
+        if (!(minHoriz < SnapDistance) && !(minVert < SnapDistance)) return;
+        double newLeft;
+        double newTop;
+
+        if (minHoriz <= minVert)
         {
-            double newLeft = Left;
-            double newTop  = Top;
-
-            if (minHoriz <= minVert)
+            // Прилипаем к левой или правой грани
+            if (distLeft < distRight)
             {
-                // Прилипаем к левой или правой грани
-                if (distLeft < distRight)
-                {
-                    newLeft = screen.Left;
-                    // Вертикально — растягиваем на весь экран
-                    newTop = screen.Top;
-                    Height = screen.Height;
-                    Width  = CompactHeight; // вертикальная полоска
-                }
-                else
-                {
-                    newLeft = screen.Right - CompactHeight;
-                    newTop  = screen.Top;
-                    Height  = screen.Height;
-                    Width   = CompactHeight;
-                }
+                newLeft = screen.Left;
+                // Вертикально — растягиваем на весь экран
+                // вертикальная полоска
             }
             else
             {
-                // Прилипаем к верхней или нижней грани
-                if (distTop < distBottom)
-                    newTop = screen.Top;
-                else
-                    newTop = screen.Bottom - CompactHeight;
-
-                newLeft = Left; // горизонтальная позиция не меняется
-                Height  = CompactHeight;
-                Width   = CompactWidth;
+                newLeft = screen.Right - CompactHeight;
             }
 
-            Left = newLeft;
-            Top  = newTop;
+            newTop = screen.Top;
+            Height = screen.Height;
+            Width  = CompactHeight; // вертикальная полоска
         }
+        else
+        {
+            // Прилипаем к верхней или нижней грани
+            if (distTop < distBottom)
+                newTop = screen.Top;
+            else
+                newTop = screen.Bottom - CompactHeight;
+
+            newLeft = Left; // горизонтальная позиция не меняется
+            Height  = CompactHeight;
+            Width   = CompactWidth;
+        }
+
+        Left = newLeft;
+        Top  = newTop;
     }
 
     // Кнопка «Развернуть» в компактном режиме
