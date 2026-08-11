@@ -5,7 +5,7 @@ namespace VoiceSynthWPF;
 public static class LocalizationManager
 {
     private const string DictUriTemplate =
-        "pack://application:,,,/VoiceSynthWPF;component/Resources/Strings.{0}.xaml";
+        "pack://application:,,,/VoiceSynth;component/Resources/Strings.{0}.xaml";
 
     public static string CurrentLanguage { get; private set; } = "en";
 

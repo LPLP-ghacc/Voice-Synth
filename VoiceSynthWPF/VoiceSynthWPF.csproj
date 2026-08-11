@@ -11,6 +11,16 @@
         <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
         <Company>LukaRepos</Company>
         <Product>VoiceSynth</Product>
+        <AssemblyName>VoiceSynth</AssemblyName>
+        <PackageId>VoiceSynth</PackageId>
+        <Version>0.9.9</Version>
+        <Title>VoiceSynth</Title>
+        <Authors>LukaRepos</Authors>
+        <Description>No microphone, it doesn't matter.</Description>
+        <PackageIcon>Resources\icon128.png</PackageIcon>
+        <RepositoryUrl>https://github.com/LPLP-ghacc/Voice-Synth</RepositoryUrl>
+        <AssemblyVersion>0.9.9</AssemblyVersion>
+        <NeutralLanguage>en-US</NeutralLanguage>
     </PropertyGroup>
 
     <ItemGroup>
@@ -35,7 +45,13 @@
         </Content>
         <None Remove="Resources\icon128.png" />
         <Content Include="Resources\icon128.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <!-- PackageIcon требует None + Pack=true, отдельно от Resource -->
+        <None Include="Resources\icon128.png" Pack="true" PackagePath="Resources\"/>
+        <None Remove="Resources\icon128.ico" />
+        <Content Include="Resources\icon128.ico">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
 
@@ -46,7 +62,7 @@
       </Resource>
       <None Remove="Resources\icon64.png" />
       <Content Include="Resources\icon64.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
 
