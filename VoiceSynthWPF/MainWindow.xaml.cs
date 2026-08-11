@@ -7,6 +7,7 @@ using ConseqConcatenation;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using static System.Enum;
+using WpfShapes = System.Windows.Shapes;
 
 namespace VoiceSynthWPF;
 
@@ -184,6 +185,10 @@ public partial class MainWindow
             // Aero Glass — нужен реальный HWND, доступен после Loaded
             AeroGlass.Enable(this, useAcrylic: true, tintColor: 0xCC1A1A1A);
             AeroGlass.HookCompositionChange(this, useAcrylic: true, tintColor: 0xCC1A1A1A);
+
+            // Инициализируем индикатор голосовой активности
+            var titleText = TopPanelControl.TitleText;
+            VoiceActivityIndicator.Init(titleText, (WpfShapes.Rectangle)FindName("CompactActivityBar"));
 
             await InitAsync();
             // Восстанавливаем компактный режим после загрузки UI
@@ -524,23 +529,31 @@ public partial class MainWindow
 
         Log($"=> {text}");
 
-        var audioStream = await Task.Run(() => _ttsProvider.SynthToStreamAsync(text));
-
-        var tcs      = new TaskCompletionSource();
-        var reader   = new WaveFileReader(audioStream);
-        var wasapiOut = new WasapiOut(_cableDevice, AudioClientShareMode.Shared, false, 100);
-
-        wasapiOut.Init(reader);
-        wasapiOut.PlaybackStopped += (_, _) =>
+        VoiceActivityIndicator.OnSpeechStart();
+        try
         {
-            wasapiOut.Dispose();
-            reader.Dispose();
-            audioStream.Dispose();
-            tcs.TrySetResult();
-        };
-        wasapiOut.Play();
+            var audioStream = await Task.Run(() => _ttsProvider.SynthToStreamAsync(text));
 
-        await tcs.Task;
+            var tcs       = new TaskCompletionSource();
+            var reader    = new WaveFileReader(audioStream);
+            var wasapiOut = new WasapiOut(_cableDevice, AudioClientShareMode.Shared, false, 100);
+
+            wasapiOut.Init(reader);
+            wasapiOut.PlaybackStopped += (_, _) =>
+            {
+                wasapiOut.Dispose();
+                reader.Dispose();
+                audioStream.Dispose();
+                tcs.TrySetResult();
+            };
+            wasapiOut.Play();
+
+            await tcs.Task;
+        }
+        finally
+        {
+            VoiceActivityIndicator.OnSpeechStop();
+        }
     }
 
     public void Log(string message) => OutputBox.Text += message + Environment.NewLine;

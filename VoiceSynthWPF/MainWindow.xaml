@@ -58,7 +58,6 @@
                                  Language="ru-RU"
                                  BorderBrush="Transparent"/>
                     </Border>
-
                     <Grid Grid.Row="0" Column="1">
                         <ScrollViewer Style="{StaticResource DarkScrollViewerStyle}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                             <StackPanel x:Name="Snippets">
@@ -85,13 +84,17 @@
                 CornerRadius="0"
                 BorderThickness="0">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Поле ввода — занимает всю ширину минус кнопка -->
-                <Border Grid.Column="0" Margin="4,3,2,3" CornerRadius="4">
+                <!-- Поле ввода -->
+                <Border Grid.Row="0" Grid.Column="0" Margin="4,3,2,3" CornerRadius="4">
                     <TextBox x:Name="CompactInputBox"
                              FontSize="15"
                              Margin="8,0,8,0"
@@ -105,7 +108,7 @@
                 </Border>
 
                 <!-- Кнопка выхода из компактного режима -->
-                <Button Grid.Column="1"
+                <Button Grid.Row="0" Grid.Column="1"
                         Width="26" Height="26"
                         Margin="2,3,4,3"
                         Style="{StaticResource FlatButtonStyle}"
@@ -119,6 +122,14 @@
                           Stretch="Uniform"
                           Width="14" Height="14"/>
                 </Button>
+
+                <!-- Индикатор активности — полоска на всю ширину -->
+                <Rectangle x:Name="CompactActivityBar"
+                           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                           Height="2"
+                           RadiusX="1" RadiusY="1"
+                           Margin="4,0,4,2"
+                           Fill="#55FFFFFF"/>
             </Grid>
         </Border>
 

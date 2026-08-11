@@ -8,8 +8,9 @@
         <Border x:Name="TopBorder">
             <Grid>
                 <StackPanel Orientation="Horizontal" Background="#4A000000">
-                    <Image Source="Resources/micIco.ico" Margin="6,4,4,4"/>
-                    <TextBlock Text="Voice Synth" 
+                    <Image Source="Resources/icon64.png" Margin="6,4,4,4"/>
+                    <TextBlock x:Name="TitleText"
+                               Text="Voice Synth" 
                                Width="70"
                                Foreground="{StaticResource PrimaryTextBrush}" 
                                FontSize="13" 

@@ -44,6 +44,10 @@
       <Resource Include="Resources\Strings.en.xaml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <None Remove="Resources\icon64.png" />
+      <Content Include="Resources\icon64.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
