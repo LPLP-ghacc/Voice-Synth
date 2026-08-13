@@ -5,7 +5,7 @@ using NAudio.CoreAudioApi;
 using SystemSpeech = System.Speech.Synthesis;
 using WinRtSpeech  = Windows.Media.SpeechSynthesis;
 
-namespace VoiceSynthWPF;
+namespace VoiceSynthWPF.CustomControls;
 
 public partial class SettingsWindow : Window
 {

@@ -1,4 +1,4 @@
-<Window x:Class="VoiceSynthWPF.SettingsWindow"
+<Window x:Class="VoiceSynthWPF.CustomControls.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,7 +9,7 @@
         Height="550" Width="520" 
         WindowStyle="None"
         ResizeMode="NoResize"
-        AllowsTransparency="True"
+        AllowsTransparency="False"
         Background="{StaticResource PanelsBrush}">
     <Border CornerRadius="8">
         <Grid>
@@ -172,11 +172,11 @@
                         <TextBlock Text="{DynamicResource Cancel}" Foreground="{StaticResource GrayTextBrush}"/>
                     </Button>
                 </Border>
-                <Border Grid.Column="2" Margin="0,8,0,8" Height="32" BorderThickness="1" BorderBrush="{StaticResource DarkBlueTextBrush}" CornerRadius="5">
+                <Border Grid.Column="2" Margin="0,8,0,8" Height="32" BorderThickness="1" BorderBrush="{StaticResource BlueTextBrush}" CornerRadius="5">
                     <Button Style="{StaticResource FlatButtonStyle}" 
                             Width="90"
                             Click="Save_Click">
-                        <TextBlock Text="{DynamicResource Save}" Foreground="{StaticResource DarkBlueTextBrush}"/>
+                        <TextBlock Text="{DynamicResource Save}" Foreground="{StaticResource BlueTextBrush}"/>
                     </Button>
                 </Border>
             </Grid>

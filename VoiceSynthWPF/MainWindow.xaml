@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VoiceSynthWPF"
+        xmlns:customControls="clr-namespace:VoiceSynthWPF.CustomControls"
         mc:Ignorable="d"
         Height="450" Width="800"
         MinHeight="450" MinWidth="800"
@@ -16,7 +17,7 @@
     
     <WindowChrome.WindowChrome>
         <WindowChrome 
-            CaptionHeight="1"
+            CaptionHeight="5"
             ResizeBorderThickness="1" 
             CornerRadius="8"
             GlassFrameThickness="1"
@@ -35,7 +36,7 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <local:TopPanel x:Name="TopPanelControl" Grid.Row="0"/>
+                <customControls:TopPanel x:Name="TopPanelControl" Grid.Row="0"/>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -127,6 +128,7 @@
                 <Rectangle x:Name="CompactActivityBar"
                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                            Height="2"
+                           Cursor="Hand"
                            RadiusX="1" RadiusY="1"
                            Margin="4,0,4,2"
                            Fill="#55FFFFFF"/>

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace VoiceSynthWPF;
+namespace VoiceSynthWPF.CustomControls;
 
 public partial class SnippetCreationWind : Window
 {
